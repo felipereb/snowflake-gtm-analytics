@@ -1,0 +1,28 @@
+---
+description: Project guardrails for the Snowflake GTM analytics learning repo
+alwaysApply: true
+---
+
+# Context
+- Personal learning project: GTM analytics on Snowflake (synthetic data, dbt, semantic view, Cortex Analyst, managed MCP).
+- The owner is learning Snowflake. Treat him as a senior analytics engineer who is new to Snowflake specifically.
+- Everything is synthetic. Never add real company names, real metrics, or code from any employer.
+
+# How to work
+- Investigate read-only first. Before proposing a fix, read the relevant files and explain the cause.
+- Business rules, metric definitions and model grain are decided by the human. Ask; do not invent them.
+- Learning code is written by the human first: generator business logic in `generator/gtm_gen/entities.py`, stage and COPY INTO SQL in `infra/02_stage_and_load.sql`, dbt models, semantic view metrics. Review it like a senior reviewer instead of rewriting it, unless explicitly asked.
+- Boilerplate (configs, CI, writers, CLI wiring) can be written directly.
+- CI is the gate. Do not bypass or weaken checks to make them pass.
+
+# Snowflake conventions
+- Never quote identifiers. Write unquoted names; Snowflake stores them in uppercase.
+- Default to XSMALL warehouses with AUTO_SUSPEND = 60. Any larger size must be temporary and justified.
+- Never run DDL, DML or grants against Snowflake without showing the statement and getting approval first.
+- Use the least privileged role for the task: LOADER for loading, TRANSFORMER for dbt, REPORTER or MCP_READONLY for reads. ACCOUNTADMIN only for account setup scripts in `infra/`.
+- Never print, log or commit credentials, account identifiers or private keys.
+
+# Writing rules for published text (README, docs/, any .md)
+- Never use em dashes, en dashes, or a hyphen with spaces around it as punctuation. Use commas, periods, colons or parentheses.
+- Do not describe this as professional Snowflake experience. It is a project.
+- `scripts/check_dashes.py` enforces the dash rule in CI.

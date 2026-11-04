@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: No em dashes, en dashes or spaced hyphens in Markdown
+        run: python scripts/check_dashes.py
+
+      - name: Lint generator
+        run: |
+          pip install ruff
+          ruff check generator
+
+      # Week 2: dbt build against a zero-copy clone goes here.

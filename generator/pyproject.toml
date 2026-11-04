@@ -1,0 +1,26 @@
+[project]
+name = "gtm-gen"
+version = "0.1.0"
+description = "Synthetic B2B SaaS CRM data generator for a Snowflake learning project"
+requires-python = ">=3.11"
+dependencies = [
+    "faker>=30.0",
+    "numpy>=2.0",
+]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.6", "pytest>=8.0"]
+
+[project.scripts]
+gtm-gen = "gtm_gen.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["gtm_gen*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
